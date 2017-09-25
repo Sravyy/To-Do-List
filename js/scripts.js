@@ -8,8 +8,6 @@ Task.prototype.fullTask = function() {
   return this.title;
 }
 
-
-
 //UserInterface logic
 $(function() {
   $("form#new-task").submit(function(event) {
@@ -20,22 +18,24 @@ $(function() {
 
     var newTask = new Task(inputtedTitle, inputtedNotes);
 
-    $("ul#tasks").append("<li><span class = addTask>" + newTask.fullTask() + "</span></li><button type='sumbit' class='btn'>Done</button>");
+    $("ul#tasks").append("<li><span class = addTask> <input type ='checkbox' name ='title' id='" + newTask.title+ "' value='"+ newTask.notes + "'>" + newTask.fullTask() + "</span></li>");
 
-
-    $("input#title").val("");
-    $("input#notes").val("");
 
     $(".addTask").last().click(function() {
       $("#show-task").show();
       $("#show-task h2").text(newTask.title);
-      $("#show-task h2").text(newTask.title);
       $(".title").text(newTask.title);
       $(".notes").text(newTask.notes);
-      // $("ul#tasks").children("li").first().click(function() {
-      //     $(this).remove();
-      // });
-    })
 
-  })
-})
+    });
+    $("input#title").val("");
+    $("input#notes").val("");
+
+  });
+    $("#remove").click(function() {
+      $("input:checkbox[name=title]:checked").each(function() {
+        $("#show-task").hide();
+        $(this).parent().parent().remove();
+      });
+  });
+});
